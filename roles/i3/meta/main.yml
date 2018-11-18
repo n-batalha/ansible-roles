@@ -1,0 +1,22 @@
+---
+galaxy_info:
+  author: n-batalha
+  description: i3
+  license: MIT
+  min_ansible_version: 2.4.0
+  version: 1.0.0
+
+  platforms:
+    - name: Ubuntu
+      versions:
+        - xenial
+        - artful
+        - bionic
+    - name: Fedora
+      versions:
+        - 28
+
+  galaxy_tags:
+    - i3
+
+dependencies: []

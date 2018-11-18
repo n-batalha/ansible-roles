@@ -1,0 +1,83 @@
+---
+- name: install the i3 packages in the RedHat Family
+  yum:
+    name: "{{ item }}"
+    state: present
+    update_cache: true
+  when: ansible_os_family == 'RedHat'
+  with_items: "{{ i3_packages }}"
+  become: true
+- name: install the i3 packages in the Debian Family
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: true
+    cache_valid_time: 3600
+  when: ansible_os_family == 'Debian'
+  with_items: "{{ i3_packages }}"
+  become: true
+- name: Create i3 config folders
+  file: path={{ config_dir_dest }}/{{ item }} state=directory owner={{ ansible_user_id }} group={{ ansible_user_id }}
+  with_items:
+    - i3
+    - i3status
+- name: "Add i3 config"
+  copy:
+    src: "files/{{ item }}_config"
+    dest: "{{ config_dir_dest }}/{{ item }}/config"
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+    mode: u+rw,g-wx,o-rwx
+  with_items:
+    - i3
+    - i3status
+
+- name: "Make xrdb import Xresources"
+  blockinfile:
+    dest: ~/.xinitrc
+    state: present
+    marker: "# {mark} Managed by Ansible - xrdb"
+    create: true
+    block: |
+      xrdb -merge ~/.Xresources
+
+- name: "Configure Xresources for HiDPI/Retina screens"
+  blockinfile:
+    dest: ~/.Xresources
+    state: present
+    marker: "# {mark} Managed by Ansible - Xresources HiDPI"
+    create: true
+    block: |
+      Xft.dpi: 220
+
+- name: "Configure Gnome Keyring for SSH on xinit method"
+  blockinfile:
+    dest: ~/.xinitrc
+    state: present
+    marker: "# {mark} Managed by Ansible - i3 w/ Gnome Keyring"
+    create: true
+    block: |
+      if [ -n "$DESKTOP_SESSION" ];then
+          eval $(gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
+          export SSH_AUTH_SOCK
+      fi
+
+- name: "Autostart Gnome Keyring on PAM"
+  blockinfile:
+    dest: /etc/pam.d/login
+    state: present
+    marker: "# {mark} Managed by Ansible - Gnome Keyring"
+    create: true
+    block: |
+      session optional pam_gnome_keyring.so auto_start
+  become: true
+
+- name: "Autostart Gnome Keyring on GDM"
+  blockinfile:
+    dest: /etc/pam.d/passwd
+    state: present
+    marker: "# {mark} Managed by Ansible - Gnome Keyring"
+    create: true
+    block: |
+      password optional pam_gnome_keyring.so
+  become: true
