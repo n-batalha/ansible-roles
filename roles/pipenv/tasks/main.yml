@@ -1,0 +1,55 @@
+---
+- name: "Install and upgrade user pip"
+  block:
+    - name: "Check if user pip is installed"
+      stat:
+        path: "{{ ansible_env.HOME }}/.local/bin/pip3"
+      register: stat_result
+
+    # Since the latest pip upgrade to version 10, there are incompatibilities with the system
+    # pip (version 9, at time of writing), as such, we only install the system pip to
+    # bootstrap the local one, then remove it.
+    #
+    # * https://github.com/pypa/pip/issues/5240
+    # * https://github.com/pypa/pip/issues/5221#issuecomment-382069604
+
+    - name: "Install user pip"
+      when: stat_result.stat.exists == False
+      block:
+        - import_tasks: dependencies/apt.yml
+          when: ansible_os_family == 'Debian'
+
+        - import_tasks: dependencies/yum.yml
+          when: ansible_os_family == 'RedHat'
+
+- name: "Install PipEnv"
+  block:
+    - name: "Add ~/.local/bin to PATH"
+      blockinfile:
+        dest: "{{ ansible_env.HOME }}/.bashrc"
+        state: present
+        marker: "# {mark} Managed by Ansible - pipenv local bin"
+        create: true
+        block: |
+          export PATH=$HOME/.local/bin:$PATH
+        insertbefore: BOF
+
+    - name: "Install pipenv with pip3"
+      pip:
+        name: pipenv
+        executable: "{{ ansible_env.HOME }}/.local/bin/pip3"
+        state: present
+        extra_args: --user
+
+    - name: "Add pipenv shell completion"
+      blockinfile:
+        dest: "{{ ansible_env.HOME }}/.bashrc"
+        block: |
+          {{ item }}
+        state: present
+        marker: "# {mark} Managed by Ansible - pipenv"
+        create: true
+      with_items:
+        - eval "$(pipenv --completion)"
+
+  become: false

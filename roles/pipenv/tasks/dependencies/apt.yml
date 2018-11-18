@@ -1,0 +1,18 @@
+---
+- name: "Install system Python 3 and pip in Debian Family"
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: true
+    cache_valid_time: 3600
+  with_items:
+    - python3-pip
+    - python3
+  become: true
+
+- name: "Upgrade pip3 on user folder in Debian Family"
+  pip:
+    name: pip
+    executable: pip3
+    state: present
+    extra_args: -U --user
