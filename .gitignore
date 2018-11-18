@@ -1,0 +1,7 @@
+**/.vagrant
+**/*.log
+**/*.retry
+tmp/*
+log/*
+
+*.pyc
