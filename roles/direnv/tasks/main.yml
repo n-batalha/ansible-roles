@@ -1,0 +1,17 @@
+---
+- name: Install direnv
+  package:
+    name: direnv
+    state: present
+    use: auto
+  when: ansible_os_family == 'RedHat' or ansible_os_family == 'Debian'
+  become: true
+
+- name: "Ensure .bashrc loads direnv"
+  blockinfile:
+    dest: ~/.bashrc
+    state: present
+    marker: "# {mark} Managed by Ansible - direnv"
+    create: true
+    block: |
+      eval "$(direnv hook bash)"
