@@ -1,0 +1,19 @@
+---
+# - name: Add git-lfs repository for Red Hat family
+#   raw: curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.rpm.sh | sudo bash
+#   become: true
+
+- name: install Git and related tools in Fedora
+  dnf:
+    name: ['git', 'meld', 'gitg', 'git-lfs']
+    state: present
+    # update_cache: true  # open issue: https://github.com/ansible/ansible/issues/49060
+  become: true
+
+- name: set git-completion location in Fedora
+  set_fact:
+    source_bash_completion: source /usr/share/doc/git/contrib/completion/git-completion.bash
+
+- name: set git-prompt in Fedora
+  set_fact:
+    source_git_prompt: source /usr/share/doc/git/contrib/completion/git-prompt.sh

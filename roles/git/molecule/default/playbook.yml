@@ -1,0 +1,9 @@
+---
+- name: Converge
+  hosts: all
+  roles:
+    - role: git
+      tags: 'git'
+      vars:
+        email: "hello@mail.com"
+        user_name_long: John Doe

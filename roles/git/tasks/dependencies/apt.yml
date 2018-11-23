@@ -1,0 +1,20 @@
+---
+- name: Add git-lfs repository for the Debian family
+  raw: curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | bash
+  become: true
+
+- name: Install Git and related tools in the Debian family
+  apt:
+    name: ['git', 'meld', 'gitg', 'git-lfs']
+    state: present
+    update_cache: true
+    cache_valid_time: 3600
+  become: true
+
+- name: set git-completion location in the Debian family
+  set_fact:
+    source_bash_completion: source /usr/share/bash-completion/completions/git
+
+- name: set git-prompt in the Debian family
+  set_fact:
+    source_git_prompt: ''

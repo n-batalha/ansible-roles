@@ -1,0 +1,73 @@
+---
+- name: Add bash config script
+  blockinfile:
+    dest: ~/.bashrc-git
+    state: present
+    create: true
+    marker: "# {mark} Managed by Ansible"
+    block: |
+      {{ item }}
+  with_items:
+    - |
+      # Enable tab completion
+      {{ source_bash_completion }}
+
+      # Set git prompt
+      {{ source_git_prompt }}
+
+      {{ ps1_prompt }}
+
+      # Add git completion to alias
+      __git_complete g __git_main
+      alias g='git'
+
+- name: Load bash config script
+  blockinfile:
+    dest: ~/.bashrc
+    state: present
+    create: true
+    marker: "# {mark} Managed by Ansible - Git"
+    block: |
+      source ~/.bashrc-git
+
+- name: Add global ignore file
+  blockinfile:
+    dest: "{{ global_git_ignore_file }}"
+    state: present
+    create: true
+    marker: "# {mark} Managed by Ansible - Git Ignore"
+    block: "{{ global_git_ignore }}"
+
+# TODO: check git config idempotency somehow
+# - name: Check if git config is missing, because git_config is not idempotent...
+#   shell: >
+#     [ $(git config --global --get {{ item.name }}) == "{{ item.value }}" ] || echo "Config mismatch"
+#   with_items: "{{ git_settings }}"
+#   register: git_config_test
+#   changed_when: "'Config mismatch' in git_config_test.stdout"
+
+- name: Configure git
+  # when: "'Config mismatch' in (git_config_test.results | map(attribute='stdout'))"
+  git_config:
+    name: "{{ item.name }}"
+    scope: global
+    value: "{{ item.value }}"
+  with_items: "{{ git_settings }}"
+  changed_when: false  # git_config is not an idempotent module, we cheat
+
+- name: Check LFS installation
+  shell: >
+    git config --list | grep -E '^{{ item }}'
+    && echo "LFS already installed" || echo "LFS not fully installed"
+  with_items:
+    - "filter.lfs.process"
+    - "filter.lfs.required"
+    - "filter.lfs.clean"
+    - "filter.lfs.smudge"
+  register: lfs_install
+  changed_when: "'LFS not fully installed' in lfs_install.stdout"
+
+- name: Register git lfs
+  # run whenever any of the above are missing
+  when: "'LFS not fully installed' in (lfs_install.results | map(attribute='stdout'))"
+  shell: git lfs install

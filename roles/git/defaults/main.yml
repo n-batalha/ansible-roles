@@ -1,0 +1,63 @@
+---
+global_git_ignore_file: ~/.gitignore_global
+git_settings:
+    - name: core.editor
+      value: nano
+    - name: color.ui
+      value: auto
+    - name: user.name
+      value: "{{ user_name_long }}"
+    - name: user.email
+      value: "{{ email }}"
+    - name: alias.ch
+      value: checkout
+    - name: alias.br
+      value: branch
+    - name: alias.c
+      value: commit
+    - name: alias.s
+      value: status
+    - name: alias.unstage
+      value: reset HEAD --
+    - name: alias.last
+      value: log -1 HEAD
+    - name: alias.visual
+      value: "!gitg"
+    - name: core.excludesfile
+      value: "{{ global_git_ignore_file }}"
+    - name: commit.gpgsign
+      value: true
+
+# '\u' adds the name of the current user to the prompt
+# '\$(__git_ps1)' adds git-related stuff
+# '\W' adds the name of the current directory
+ps1_prompt: |
+    # colors!
+    green="\[\033[0;32m\]"
+    blue="\[\033[0;34m\]"
+    purple="\[\033[0;35m\]"
+    reset="\[\033[0m\]"
+
+    export GIT_PS1_SHOWDIRTYSTATE=1
+    # '\u' adds the name of the current user to the prompt
+    # '\$(__git_ps1)' adds git-related stuff
+    # '\W' adds the name of the current directory
+    export PS1="$purple\u$green\$(__git_ps1)$blue \W $ $reset"
+
+global_git_ignore: |
+    # Direnv stuff
+    .direnv
+    .envrc
+
+    # OS generated files #
+    ######################
+    .DS_Store
+    ehthumbs.db
+    Icon?
+    Thumbs.db
+
+    # Editor files #
+    ################
+    *~
+    *.swp
+    *.swo

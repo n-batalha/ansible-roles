@@ -1,0 +1,18 @@
+---
+galaxy_info:
+  author: n-batalha
+  description: git
+  license: MIT
+  min_ansible_version: 2.4.0
+  version: 1.0.2
+
+  platforms:
+    - name: Fedora
+      versions:
+        - 29
+
+  galaxy_tags:
+    - development
+    - git
+
+dependencies: []

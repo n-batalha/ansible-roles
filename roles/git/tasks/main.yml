@@ -1,0 +1,8 @@
+---
+- import_tasks: dependencies/apt.yml
+  when: ansible_os_family == 'Debian'
+
+- import_tasks: dependencies/dnf.yml
+  when: ansible_distribution == 'Fedora'
+
+- import_tasks: configuration.yml
