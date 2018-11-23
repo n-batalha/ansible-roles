@@ -1,4 +1,4 @@
--e git+ssh://git@github.com/ansible/ansible.git@565d4639b3147a79ef9c2c37906ba5075f9e4a0b#egg=ansible
+-e git+https://git@github.com/ansible/ansible.git@565d4639b3147a79ef9c2c37906ba5075f9e4a0b#egg=ansible
 ansible-lint==3.4.23
 anyconfig==0.9.7
 arrow==0.12.1

@@ -1,0 +1,35 @@
+---
+language: python
+
+python:
+  - 3.6
+
+env:
+    - ROLE=direnv
+    - ROLE=git
+    - ROLE=i3
+    - ROLE=pipenv
+# TODO: when Mazer and new Ansible are stable, parametrize versions here
+#   - ANSIBLE_VERSION=latest
+#   - ANSIBLE_VERSION=2.4.0
+
+sudo: required
+
+services:
+  - docker
+
+addons:
+  apt:
+    packages:
+    - python-pip
+    # molecule requirement
+    - libssl-dev
+
+install:
+  # TODO: see env:
+  # - if [ "$ANSIBLE_VERSION" = "latest" ]; then pip install ansible; else pip install ansible==$ANSIBLE_VERSION; fi
+  - pip install --upgrade pip
+  - pip install -r requirements_dev.txt
+
+script:
+  - cd roles/$ROLE; molecule test

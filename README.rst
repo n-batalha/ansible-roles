@@ -1,6 +1,9 @@
 Ansible roles collection
 ========================
 
+.. image:: https://travis-ci.com/n-batalha/ansible-roles.svg?branch=master
+    :target: https://travis-ci.com/n-batalha/ansible-roles
+
 How to use
 ----------
 
@@ -67,6 +70,7 @@ See `Molecule setup and requirements <https://molecule.readthedocs.io/en/latest/
 .. code-block::
 
   # needs ssl bindings only on system package
+  # https://github.com/ansible/ansible/issues/34340
   python3.7 -m venv --system-site-packages ~/.virtualenvs/n-batalha-roles
   . ~/.virtualenvs/n-batalha-roles-dev/bin/activate
   pip install -r requirements-dev.txt

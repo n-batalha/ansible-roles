@@ -3,7 +3,7 @@
   dnf:
     name: ['python3', 'python3-pip']
     state: present
-    update_cache: true
+    # update_cache: true  # open issue: https://github.com/ansible/ansible/issues/49060
   become: true
 
 - name: "Upgrade pip3 on user folder in RedHat Family"
