@@ -16,12 +16,9 @@
       register: stack_installed
       changed_when: "'No' in stack_installed.stdout"
 
-    - name: "Download and install Slack"
+    - name: Install Stack
       when: stack_result.stat.exists == False and "'No' in stack_installed.stdout"
-      block:
-        - name: Install Stack
-          script: stack_install.sh -d {{ stack_dir }}
-
+      script: stack_install.sh -d {{ stack_dir }}
 
 - name: "Configure Haskell Stack"
   block:
