@@ -4,7 +4,7 @@ Ansible roles collection
 .. image:: https://travis-ci.com/n-batalha/ansible-roles.svg?branch=master
     :target: https://travis-ci.com/n-batalha/ansible-roles
 
-See `introductory blog post <https://spotofdata.com/automated-local-environments/>`_.
+See `introductory blog post <https://spotofdata.com/automated-local-environments/?utm_source=github&utm_campaign=ansible_roles/>`_.
 
 Roles
 -----
@@ -104,6 +104,7 @@ Then
 1. Configure supported :code:`platforms` in :code:`molecule.yml`
 2. Add role to :code:`.travis-ci.yml`
 3. Add role to list in this file
+4. Add role to :code:`build/test-local-docker.sh`
 
 FAQ
 ---
