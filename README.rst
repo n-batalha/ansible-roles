@@ -4,6 +4,14 @@ Ansible roles collection
 .. image:: https://travis-ci.com/n-batalha/ansible-roles.svg?branch=master
     :target: https://travis-ci.com/n-batalha/ansible-roles
 
+Roles
+-----
+
+* direnv
+* git
+* i3
+* pipenv
+
 How to use
 ----------
 
@@ -83,14 +91,15 @@ At the time of writing, Mazer is changing quickly and does not seem to have a wa
 Add more roles
 ~~~~~~~~~~~~~~
 
-Move to under roles, and add the test boilerplate:
+.. code-block::
 
-```
-molecule init scenario --driver-name docker -r <role_name> --verifier-name testinfra
-```
+    cd roles
+    molecule init scenario --driver-name docker -r <role_name> --verifier-name testinfra
+
+Then
 
 1. Configure supported :code:`platforms` in :code:`molecule.yml`
-2. Change .travis-ci.yml
+2. Add role to :code:`.travis-ci.yml`
 
 
 FAQ
