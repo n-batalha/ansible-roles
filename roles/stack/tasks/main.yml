@@ -19,15 +19,9 @@
     - name: "Download and install Slack"
       when: stack_result.stat.exists == False and "'No' in stack_installed.stdout"
       block:
-        - name: Download Stack
-          get_url:
-            url: "https://get.haskellstack.org/"
-            dest: "{{ stack_installer }}"
-            mode: 755
-            checksum: "sha256:c7214d9585b3ba3a1b04e116f428c2b22d7e37fff110c5578c1633650f4ec669"
-
         - name: Install Stack
-          command: "{{ stack_installer }} -d {{ stack_dir }}"
+          script: stack_install.sh -d {{ stack_dir }}
+
 
 - name: "Configure Haskell Stack"
   block:
