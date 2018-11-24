@@ -27,6 +27,8 @@ git_settings:
       value: "{{ global_git_ignore_file }}"
     - name: commit.gpgsign
       value: true
+    - name: gpg.program
+      value: gpg2
 
 # '\u' adds the name of the current user to the prompt
 # '\$(__git_ps1)' adds git-related stuff
