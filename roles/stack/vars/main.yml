@@ -1,0 +1,5 @@
+---
+stack_version: 1.9.1
+stack_dir: "{{ ansible_env.HOME }}/.local/bin"
+stack_location: "{{ stack_dir }}/stack"
+stack_installer: /tmp/stack_install_{{ stack_version }}

@@ -1,0 +1,53 @@
+---
+# This is all pretty horrible, needs to be redone
+- name: "Install stack"
+  block:
+    - name: "Check if stack is installed in ~/.local/bin/"
+      stat:
+        path: "{{ stack_location }}"
+      register: stack_result
+
+    - name: "Check if we have the desired version of stack"
+      when: stack_result.stat.exists == False
+      shell: >
+        {{ stack_location }} --version | grep "^Version { stack_version },"
+        && echo "Yes"
+        || echo "No"
+      register: stack_installed
+      changed_when: "'No' in stack_installed.stdout"
+
+    - name: "Download and install Slack"
+      when: stack_result.stat.exists == False and "'No' in stack_installed.stdout"
+      block:
+        - name: Download Stack
+          get_url:
+            url: "https://get.haskellstack.org/"
+            dest: "{{ stack_installer }}"
+            mode: 755
+            checksum: "sha256:c7214d9585b3ba3a1b04e116f428c2b22d7e37fff110c5578c1633650f4ec669"
+
+        - name: Install Stack
+          command: "{{ stack_installer }} -d {{ stack_dir }}"
+
+- name: "Configure Haskell Stack"
+  block:
+    - name: "Add ~/.local/bin to PATH"
+      blockinfile:
+        dest: "{{ ansible_env.HOME }}/.bashrc"
+        state: present
+        marker: "# {mark} Managed by Ansible - Haskell Stack local bin"
+        create: true
+        block: |
+          export PATH=$HOME/.local/bin:$PATH
+        insertbefore: BOF
+
+    - name: "Add stack shell completion"
+      blockinfile:
+        dest: "{{ ansible_env.HOME }}/.bashrc"
+        block: |
+          {{ item }}
+        state: present
+        marker: "# {mark} Managed by Ansible - Haskell Stack"
+        create: true
+      with_items:
+        - eval "$(stack --bash-completion-script stack)"

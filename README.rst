@@ -11,6 +11,7 @@ Roles
 * git
 * i3
 * pipenv
+* haskell stack
 
 How to use
 ----------
@@ -100,7 +101,7 @@ Then
 
 1. Configure supported :code:`platforms` in :code:`molecule.yml`
 2. Add role to :code:`.travis-ci.yml`
-
+3. Add role to list in this file
 
 FAQ
 ---

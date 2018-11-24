@@ -1,0 +1,19 @@
+---
+galaxy_info:
+  author: n-batalha
+  description: stack
+  license: MIT
+  min_ansible_version: 2.4.0
+  version: 1.0.0
+
+  platforms:
+    - name: Fedora
+      versions:
+        - 29
+
+  galaxy_tags:
+    - haskell
+    - stack
+    - development
+
+dependencies: []
