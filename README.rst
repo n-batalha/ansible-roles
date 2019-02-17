@@ -85,17 +85,21 @@ Pipenv
 ++++++
 
 .. code-block:: bash
-  # --site-packages as it needs ssl bindings that only exist as system package
-  # https://github.com/ansible/ansible/issues/34340
 
-  # temporary pipenv flow due to a bug
-  # https://github.com/pypa/pipenv/issues/3504#issuecomment-464453146
+    # We use --site-packages as it needs ssl bindings that only exist as a system package
+    # https://github.com/ansible/ansible/issues/34340
 
-  pipenv --site-packages --three
-  pipenv install --dev
+    # strange temporary pipenv flow due to a bug
+    # https://github.com/pypa/pipenv/issues/3504#issuecomment-464453146
 
-  # you can now run the tests locally with
-  pipenv run bash ./bin/test-local-docker.sh
+    pipenv --site-packages --three
+    pipenv install --dev
+
+    # you can now run all the tests locally with
+    pipenv run bash ./bin/test-local-docker.sh
+
+    # or just test an isolated role with
+    pipenv run bash -c "(cd roles/<tested_role>; molecule test)"
 
 If you install new dependencies needed for users, please make sure to export them to `requirements.txt` as new users might not have pipenv installed (as it is provided as a role):
 
