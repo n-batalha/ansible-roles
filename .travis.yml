@@ -23,14 +23,15 @@ addons:
   apt:
     packages:
     - python-pip
-    # molecule requirement
+    # molecule/ansible requirement https://github.com/ansible/ansible/issues/34340
     - libssl-dev
 
 install:
   # TODO: see env:
   # - if [ "$ANSIBLE_VERSION" = "latest" ]; then pip install ansible; else pip install ansible==$ANSIBLE_VERSION; fi
   - pip install --upgrade pip
-  - pip install -r requirements_dev.txt
+  - pip install pipenv
+  - pipenv install --dev
 
 script:
-  - cd roles/$ROLE; molecule test
+  - pipenv run bash -c "(cd roles/\${ROLE}; molecule test)"

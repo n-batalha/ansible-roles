@@ -7,7 +7,7 @@
   dnf:
     name: ['git', 'meld', 'gitg', 'git-lfs']
     state: present
-    # update_cache: true  # open issue: https://github.com/ansible/ansible/issues/49060
+    update_cache: true
   become: true
 
 - name: set git-completion location in Fedora

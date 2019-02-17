@@ -18,9 +18,9 @@ Roles
 How to use
 ----------
 
-Setup an environment with `Mazer <https://github.com/ansible/mazer>`_ (current stable Ansible Galaxy does not support roles in a monorepo).
+Setup an environment with `Mazer <https://github.com/ansible/mazer>`_ (as the current stable Ansible Galaxy does not support roles in a monorepo).
 
-Because :code:`pipenv` might not yet be installed, we just assume Python3 is:
+Because :code:`pipenv` might not yet be installed, we just assume Python 3 is:
 
 .. code-block::
 
@@ -28,7 +28,7 @@ Because :code:`pipenv` might not yet be installed, we just assume Python3 is:
   . ~/.virtualenvs/n-batalha-roles/bin/activate
   pip install -r requirements.txt
 
-  # install and make sure updates replace existing roles
+  # install [all roles] and make sure we replace existing roles
   mazer install -f --namespace n-batalha git@github.com:n-batalha/ansible-roles.git
 
 Now you can refer to the roles in your playbook like this:
@@ -76,15 +76,32 @@ Now you can refer to the roles in your playbook like this:
 Development
 -----------
 
-See `Molecule setup and requirements <https://molecule.readthedocs.io/en/latest/installation.html#requirements>`_.
+Setup the development environment
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code-block::
+See `Molecule setup and requirements <https://molecule.readthedocs.io/en/latest/installation.html#requirements>`_ for system package requirements (currently not available to a virtualenv).
 
-  # needs ssl bindings only on system package
+Pipenv
+++++++
+
+.. code-block:: bash
+  # --site-packages as it needs ssl bindings that only exist as system package
   # https://github.com/ansible/ansible/issues/34340
-  python3.7 -m venv --system-site-packages ~/.virtualenvs/n-batalha-roles
-  . ~/.virtualenvs/n-batalha-roles-dev/bin/activate
-  pip install -r requirements-dev.txt
+
+  # temporary pipenv flow due to a bug
+  # https://github.com/pypa/pipenv/issues/3504#issuecomment-464453146
+
+  pipenv --site-packages --three
+  pipenv install --dev
+
+  # you can now run the tests locally with
+  pipenv run bash ./bin/test-local-docker.sh
+
+If you install new dependencies needed for users, please make sure to export them to `requirements.txt` as new users might not have pipenv installed (as it is provided as a role):
+
+.. code-block:: bash
+
+  pipenv lock -r --dev >requirements.txt
 
 Note
 ++++
@@ -103,8 +120,7 @@ Then
 
 1. Configure supported :code:`platforms` in :code:`molecule.yml`
 2. Add role to :code:`.travis-ci.yml`
-3. Add role to list in this file
-4. Add role to :code:`build/test-local-docker.sh`
+3. Add role to the list in this file
 
 FAQ
 ---
