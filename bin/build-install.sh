@@ -1,3 +1,5 @@
+# until mazer supports local sources
+
 cd ..
 tar cvf /tmp/ansible-roles.tar ansible-roles
 mazer install --namespace n-batalha /tmp/ansible-roles.tar

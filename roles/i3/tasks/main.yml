@@ -3,7 +3,7 @@
   yum:
     name: "{{ item }}"
     state: present
-    # update_cache: true  # open issue: https://github.com/ansible/ansible/issues/49060
+    update_cache: true
   when: ansible_os_family == 'RedHat'
   with_items: "{{ i3_packages }}"
   become: true
@@ -11,7 +11,8 @@
   apt:
     name: "{{ item }}"
     state: present
-    # update_cache: true  # open issue: https://github.com/ansible/ansible/issues/49060    cache_valid_time: 3600
+    update_cache: true
+    cache_valid_time: 3600
   when: ansible_os_family == 'Debian'
   with_items: "{{ i3_packages }}"
   become: true
