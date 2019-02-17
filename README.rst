@@ -15,6 +15,13 @@ Roles
 * pipenv
 * haskell stack
 
+Supported distributions
+-----------------------
+
+* Fedora 29
+
+Ubuntu might work (as roles often consider it) but it is not currently tested properly. Please open a ticket if interested, or submit a Pull Request.
+
 How to use
 ----------
 
