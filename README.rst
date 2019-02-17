@@ -45,40 +45,25 @@ Now you can refer to the roles in your playbook like this:
   - hosts: localhost
     roles:
       - role: n-batalha.ansible-roles.git
-        tags: 'git'
         vars:
              email: "your_email@email.com"
              user_name_long: Your Name Here
              git_settings:
                - name: core.editor
                  value: nano
-               - name: color.ui
-                 value: auto
                - name: user.name
                  value: "{{ user_name_long }}"
                - name: user.email
                  value: "{{ email }}"
                - name: alias.ch
                  value: checkout
-               - name: alias.br
-                 value: branch
                - name: alias.c
                  value: commit
                - name: alias.s
                  value: status
-               - name: alias.unstage
-                 value: reset HEAD --
-               - name: alias.last
-                 value: log -1 HEAD
-               - name: alias.visual
-                 value: "!gitg"
-               - name: core.excludesfile
-                 value: "{{ global_git_ignore_file }}"
-               - name: commit.gpgsign
-                 value: true
-      - { role: n-batalha.ansible-roles.direnv, tags: 'direnv' }
-      - { role: n-batalha.ansible-roles.i3, tags: 'i3' }
-      - { role: n-batalha.ansible-roles.pipenv, tags: 'pipenv'}
+      - role: n-batalha.ansible-roles.direnv
+      - role: n-batalha.ansible-roles.i3
+      - role: n-batalha.ansible-roles.pipenv
 
 Development
 -----------
@@ -86,14 +71,14 @@ Development
 Setup the development environment
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-See `Molecule setup and requirements <https://molecule.readthedocs.io/en/latest/installation.html#requirements>`_ for system package requirements (currently not available to a virtualenv).
+See `Molecule setup and requirements <https://molecule.readthedocs.io/en/latest/installation.html#requirements>`_ for system requirements.
 
 Pipenv
 ++++++
 
 .. code-block:: bash
 
-    # We use --site-packages as it needs ssl bindings that only exist as a system package
+    # We use --site-packages as it needs bindings that only exist in a system package
     # https://github.com/ansible/ansible/issues/34340
 
     # strange temporary pipenv flow due to a bug
