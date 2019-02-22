@@ -1,0 +1,24 @@
+---
+molecule:
+  ignore_paths:
+    - tasks
+    - meta
+
+ansible:
+  verbose: vv
+  # molecule automatically adds -s, so override that and disable it
+  sudo: no
+
+vagrant:
+  platforms:
+    - name: jessie64
+      box: debian/jessie64
+
+  providers:
+    - name: virtualbox
+      type: virtualbox
+
+  instances:
+    - name: firefox-desktop
+      raw_config_args:
+        - "vm.synced_folder '.', '/vagrant', disabled: true"

@@ -1,0 +1,17 @@
+---
+- name: Add Debian unstable repository.
+  apt_repository:
+    repo: "deb http://http.debian.net/debian unstable main"
+    state: present
+    filename: /etc/apt/sources.list.d/debian_unstable
+
+- name: Configure apt preferences to allow only Firefox from unstable.
+  copy:
+    content: "{{ firefox_apt_preferences_content }}"
+    dest: /etc/apt/preferences.d/firefox_unstable.pref
+
+- name: Install Firefox Quantum.
+  apt:
+    name: firefox
+    default_release: unstable
+    state: present

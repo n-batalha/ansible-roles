@@ -1,0 +1,30 @@
+---
+- name: Download Firefox tarball.
+  become: yes
+  get_url:
+    url: "{{ firefox_download_url }}"
+    dest: "{{ firefox_download_directory }}/{{ firefox_download_tarball }}"
+
+- name: Create Firefox install directory.
+  become: yes
+  file:
+    path: "{{ firefox_install_directory }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Extract Firefox tarball.
+  become: yes
+  unarchive:
+    src: "{{ firefox_download_directory }}/{{ firefox_download_tarball }}"
+    dest: "{{ firefox_install_directory }}"
+    copy: no
+
+- name: Create symlink for Firefox binary.
+  become: yes
+  file:
+    state: link
+    src: "{{ firefox_symlink_src }}"
+    dest: "{{ firefox_symlink_dest }}"
+  when: firefox_create_symlink == true

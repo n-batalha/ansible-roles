@@ -1,0 +1,5 @@
+---
+- naie: Install Firefox
+  hosts: workstations
+  roles:
+    - role: conorsch.firefox

@@ -1,0 +1,21 @@
+---
+galaxy_info:
+  author: Conor Schaefer (@conorsch)
+  description: Installs latest version of Firefox on Debian-like distros.
+  license: MIT
+  min_ansible_version: 1.9
+  platforms:
+    - name: Debian
+      versions:
+        - stretch
+    - name: Ubuntu
+      versions:
+        - xenial
+  galaxy_tags:
+    - workstation
+    - system
+    - graphical
+    - firefox
+    - browser
+    - web
+dependencies: []
