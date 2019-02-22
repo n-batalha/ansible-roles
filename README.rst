@@ -88,12 +88,6 @@ Pipenv
     pipenv --site-packages --three
     pipenv install --dev
 
-    # you can now run all the tests locally with
-    pipenv run bash ./bin/test-local-docker.sh
-
-    # or just test an isolated role with
-    pipenv run bash -c "(cd roles/<tested_role>; molecule test)"
-
 If you install new dependencies needed for users, please make sure to export them to `requirements.txt` as new users might not have pipenv installed (as it is provided as a role):
 
 .. code-block:: bash
@@ -106,6 +100,19 @@ Note
 * At the time of writing, Mazer is changing quickly and does not seem to have a working way (documented at least) to work locally on a set of roles. If you want to install a role locally without going through a repository, make a symlink / copy of the role to the desired location to install.
 * To run a role locally without writing a playbook, just use the included `./bin/ansible-role.sh`
 
+Tests
+~~~~~
+
+These are ran on:
+
+* `Travis CI <https://travis-ci.com/n-batalha/ansible-roles>`_
+* locally via `./bin/test-local-docker.sh` (it assumes pipenv is configured)
+  * the above runs all tests, to test a single role you can run:
+
+  .. code-block:: Bash
+
+    pipenv run bash -c "(cd roles/<tested_role>; molecule test)"
+
 Add more roles
 ~~~~~~~~~~~~~~
 
@@ -115,9 +122,10 @@ Add more roles
 
 Then
 
-1. Configure supported :code:`platforms` in :code:`molecule.yml`
+1. In the role dir, make use of the shared boilerplate `molecule.yml`: `rm molecule/default/molecule.yml && ln -s ../../../molecule-shared.yml molecule/default/molecule.yml`
 2. Add role to :code:`.travis-ci.yml`
 3. Add role to the list in this file
+4. Make sure tests pass
 
 FAQ
 ---

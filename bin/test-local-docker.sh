@@ -1,6 +1,6 @@
 set -e
 
-for role in $(ls roles/)
+for ROLE in $(ls roles/)
 do
-    (cd roles/$role; molecule test) || exit
+    pipenv run bash -c "(cd roles/${ROLE}; molecule test)" || exit
 done
