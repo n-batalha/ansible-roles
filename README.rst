@@ -111,8 +111,7 @@ Add more roles
 
 .. code-block::
 
-    cd roles
-    molecule init scenario --driver-name docker -r <role_name> --verifier-name testinfra
+    pipenv run molecule init role --driver-name docker -r roles/<role_name> --verifier-name testinfra
 
 Then
 
