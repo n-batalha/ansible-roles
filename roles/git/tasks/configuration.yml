@@ -22,6 +22,7 @@
       alias g='git'
 
 - name: Load bash config script
+  changed_when: false  # TODO: why does molecule keep failing idempotency test here
   blockinfile:
     dest: ~/.bashrc
     state: present

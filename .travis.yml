@@ -10,6 +10,7 @@ env:
     - ROLE=i3
     - ROLE=pipenv
     - ROLE=stack
+    - ROLE=git-subrepo
 # TODO: when Mazer and new Ansible are stable, parametrize versions here
 #   - ANSIBLE_VERSION=latest
 #   - ANSIBLE_VERSION=2.4.0

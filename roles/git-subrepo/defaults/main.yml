@@ -1,0 +1,2 @@
+---
+dir_dest: "{{ ansible_env.HOME }}/.local/share/git-subrepo"
