@@ -1,0 +1,2 @@
+# necessary for stable Ansible to process a monorepo
+# https://github.com/ansible/ansible/issues/16804
