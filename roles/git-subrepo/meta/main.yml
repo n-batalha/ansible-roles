@@ -1,0 +1,21 @@
+---
+galaxy_info:
+  author: git-subrepo
+  description: Installs the git-subrepo tool
+
+  license: MIT
+
+  min_ansible_version: 1.2
+
+  platforms:
+    - name: Fedora
+      versions:
+        - 29
+
+  galaxy_tags:
+    - git
+    - git-subrepo
+
+# it depends on git being installed but we don't force git roles to run everytime, the user must do so in his playbook
+# the playbook in tests however, pulls in the git repo before running this role
+dependencies: []

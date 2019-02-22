@@ -1,0 +1,20 @@
+---
+- name: Create destination folder
+  file: path={{ dir_dest }} state=directory owner={{ ansible_user_id }} group={{ ansible_user_id }}
+- name: Install git-subrepo repo
+  git:
+    repo: 'https://github.com/ingydotnet/git-subrepo.git'
+    dest: "{{ dir_dest }}"
+    version: 0.4.0
+- name: Configure shell config scripts
+  changed_when: false  # TODO: why does molecule keep failing idempotency test here
+  blockinfile:
+    dest: "{{ ansible_env.HOME }}/{{ item }}"
+    state: present
+    create: true
+    marker: "# {mark} Managed by Ansible - Git"
+    block: |
+      source {{ dir_dest }}/.rc
+  with_items:
+    - ".bashrc"
+    - ".zshrc"

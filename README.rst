@@ -14,6 +14,7 @@ Roles
 * i3
 * pipenv
 * haskell stack
+* git-subrepo
 
 Supported distributions
 -----------------------
