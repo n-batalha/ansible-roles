@@ -1,0 +1,9 @@
+# ansible-galaxy.yml
+---
+version: "0.1.0"  # metadata format version
+name: ansible_roles
+namespace: n_batalha
+license: MIT
+
+# roles:
+# - path: playbooks/roles/*

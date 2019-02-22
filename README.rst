@@ -28,7 +28,7 @@ How to use
 
 Setup an environment with `Mazer <https://github.com/ansible/mazer>`_ (as the current stable Ansible Galaxy does not support roles in a monorepo).
 
-Because :code:`pipenv` might not yet be installed, we just assume Python 3 is:
+Because :code:`pipenv` might not yet be installed (as it is a role we provide), we just assume Python 3 is:
 
 .. code-block::
 
@@ -98,12 +98,13 @@ If you install new dependencies needed for users, please make sure to export the
 
 .. code-block:: bash
 
-  pipenv lock -r --dev >requirements.txt
+  pipenv lock -r >requirements.txt
 
 Note
 ++++
 
-At the time of writing, Mazer is changing quickly and does not seem to have a way (documented at least) to work locally on a set of roles. Only via packaging a hacky tar file and installing that (in :code:`./bin/build-install.sh`)
+* At the time of writing, Mazer is changing quickly and does not seem to have a working way (documented at least) to work locally on a set of roles. If you want to install a role locally without going through a repository, make a symlink / copy of the role to the desired location to install.
+* To run a role locally without writing a playbook, just use the included `./bin/ansible-role.sh`
 
 Add more roles
 ~~~~~~~~~~~~~~

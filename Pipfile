@@ -8,6 +8,7 @@ molecule = "*"
 docker-py = "*"
 
 [packages]
+ansible = "*"
 mazer = "*"
 
 [requires]

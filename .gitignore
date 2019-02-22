@@ -1,3 +1,5 @@
+releases/
+
 **/.vagrant
 **/*.log
 **/*.retry
