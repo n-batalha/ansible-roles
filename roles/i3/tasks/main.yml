@@ -34,7 +34,7 @@
 
 - name: "Make xrdb import Xresources"
   blockinfile:
-    dest: ~/.xinitrc
+    dest: "{{ ansible_env.HOME }}/.xinitrc"
     state: present
     marker: "# {mark} Managed by Ansible - xrdb"
     create: true
@@ -43,7 +43,7 @@
 
 - name: "Configure Xresources for HiDPI/Retina screens"
   blockinfile:
-    dest: ~/.Xresources
+    dest: "{{ ansible_env.HOME }}/.Xresources"
     state: present
     marker: "# {mark} Managed by Ansible - Xresources HiDPI"
     create: true
@@ -52,7 +52,7 @@
 
 - name: "Configure Gnome Keyring for SSH on xinit method"
   blockinfile:
-    dest: ~/.xinitrc
+    dest: "{{ ansible_env.HOME }}/.xinitrc"
     state: present
     marker: "# {mark} Managed by Ansible - i3 w/ Gnome Keyring"
     create: true

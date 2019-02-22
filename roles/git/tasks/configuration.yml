@@ -1,7 +1,7 @@
 ---
 - name: Add bash config script
   blockinfile:
-    dest: ~/.bashrc-git
+    dest: "{{ ansible_env.HOME }}/.bashrc-git"
     state: present
     create: true
     marker: "# {mark} Managed by Ansible"
@@ -24,10 +24,11 @@
 - name: Load bash config script
   changed_when: false  # TODO: why does molecule keep failing idempotency test here
   blockinfile:
-    dest: ~/.bashrc
+    dest: "{{ ansible_env.HOME }}/.bashrc"
     state: present
     create: true
     marker: "# {mark} Managed by Ansible - Git"
+    insertafter: EOF
     block: |
       source ~/.bashrc-git
 
@@ -37,6 +38,7 @@
     state: present
     create: true
     marker: "# {mark} Managed by Ansible - Git Ignore"
+    insertafter: EOF
     block: "{{ global_git_ignore }}"
 
 # TODO: check git config idempotency somehow
