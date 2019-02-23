@@ -1,0 +1,21 @@
+---
+galaxy_info:
+  author: Nelson Batalha
+  description: Installs Firefox Developer Edition
+  license: MIT
+  min_ansible_version: 1.9
+  platforms:
+    - name: Debian
+      versions:
+        - stretch
+    - name: Fedora
+      versions:
+        - 29
+  galaxy_tags:
+    - workstation
+    - system
+    - graphical
+    - firefox
+    - browser
+    - web
+dependencies: []

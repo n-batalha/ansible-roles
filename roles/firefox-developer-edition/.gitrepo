@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/git-commands/git-subrepo#readme
+;
+[subrepo]
+	remote = git@github.com:conorsch/ansible-role-firefox.git
+	branch = master
+	commit = 7a58f5b46f3feede9d15664d0ae1b3d1458132d6
+	parent = 479058da8a74676da17e3821e120b78a219ff937
+	method = merge
+	cmdver = 0.4.0

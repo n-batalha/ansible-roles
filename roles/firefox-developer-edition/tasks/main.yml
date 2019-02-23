@@ -1,0 +1,7 @@
+---
+# tasks file for firefox
+
+- include: install_from_tarball.yml
+  when: (ansible_os_family == 'RedHat') or
+        (ansible_distribution == 'Debian') or
+        (ansible_distribution == 'Ubuntu')
