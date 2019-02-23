@@ -32,8 +32,6 @@ This is a monorepo with multiple Ansible roles which isn't currently natively su
 How to use
 ----------
 
-Setup an environment with  (as the current stable Ansible Galaxy does not support roles in a monorepo).
-
 Because :code:`pipenv` might not yet be installed (as it is a role we provide), we just assume Python 3 is:
 
 .. code-block::
