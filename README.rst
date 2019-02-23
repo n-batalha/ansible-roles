@@ -15,7 +15,7 @@ Roles
 * pipenv
 * haskell stack
 * git-subrepo
-* firefox-developer-edition
+* firefox-developer-edition (forked from `@conorsch <https://github.com/conorsch/ansible-role-firefox>`_)
 
 Supported distributions
 -----------------------
