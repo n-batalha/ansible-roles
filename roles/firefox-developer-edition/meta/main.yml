@@ -1,16 +1,16 @@
 ---
 galaxy_info:
-  author: Conor Schaefer (@conorsch)
-  description: Installs latest version of Firefox on Debian-like distros.
+  author: Nelson Batalha
+  description: Installs Firefox Developer Edition
   license: MIT
   min_ansible_version: 1.9
   platforms:
     - name: Debian
       versions:
         - stretch
-    - name: Ubuntu
+    - name: Fedora
       versions:
-        - xenial
+        - 29
   galaxy_tags:
     - workstation
     - system

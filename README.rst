@@ -15,6 +15,7 @@ Roles
 * pipenv
 * haskell stack
 * git-subrepo
+* firefox-developer-edition
 
 Supported distributions
 -----------------------
@@ -70,13 +71,9 @@ Now you can refer to the roles in your playbook like this:
                  value: "{{ email }}"
                - name: alias.ch
                  value: checkout
-               - name: alias.c
-                 value: commit
-               - name: alias.s
-                 value: status
       - role: ansible-roles/roles/direnv
-      - role: ansible-roles/roles/i3
-      - role: ansible-roles/roles/pipenv
+
+To update, simply rerun the `install` command above.
 
 Contributing
 ------------

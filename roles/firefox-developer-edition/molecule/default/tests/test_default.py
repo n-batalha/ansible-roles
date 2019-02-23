@@ -10,5 +10,10 @@ def test_firefox_installed(host):
     """
     Ensure the firefox package is installed.
     """
-    p = host.package('firefox')
-    assert p.is_installed
+    ff_bin_location = "/root/.local/share/firefox/firefox"
+    ff_bin_sym = host.file("/root/.local/bin/firefox-developer-edition")
+    ff_bin = host.file(ff_bin_location)
+
+    assert ff_bin_sym.is_symlink
+    assert ff_bin.is_file
+    assert ff_bin_sym.linked_to == ff_bin_location

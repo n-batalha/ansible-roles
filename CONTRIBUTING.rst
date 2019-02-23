@@ -26,10 +26,16 @@ If you install new dependencies needed for users, please make sure to export the
 
   pipenv lock -r >requirements.txt
 
-Note
-++++
+subrepos
+++++++++
 
-* At the time of writing, Mazer is changing quickly and does not seem to have a working way (documented at least) to work locally on a set of roles. If you want to install a role locally without going through a repository, make a symlink / copy of the role to the desired location to install.
+Some roles are installed as [sub-repos](https://github.com/ingydotnet/git-subrepo). This is so that we can pull upstream updates and also push updates upstream of our own. You have a role available that sets up git-subrepo for you.
+
+Please get familiar with this tool if editing these roles (they contain :code:`.gitrepo` on the root location).
+
+Notes
++++++
+
 * To run a role locally without writing a playbook, just use the included `./bin/ansible-role.sh`
 
 Tests
@@ -56,11 +62,11 @@ Then
 
 1. In the role dir, make use of the shared boilerplate `molecule.yml`: `rm molecule/default/molecule.yml && ln -s ../../../molecule-shared.yml molecule/default/molecule.yml`
 2. Add role to :code:`.travis-ci.yml`
-3. Add role to the list in this file
+3. Add role to the list in the `README <README.rst>`_
 4. Make sure tests pass
 
 FAQ
----
+~~~
 
 :code:`Fedora: `Unknown Error occured: coreutils-single conflicts with coreutils-8.30-6.fc29.x86_64", "rc": 1, "results": []}`
 

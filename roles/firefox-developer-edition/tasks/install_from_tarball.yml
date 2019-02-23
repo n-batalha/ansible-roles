@@ -10,8 +10,8 @@
   file:
     path: "{{ firefox_install_directory }}"
     state: directory
-    owner: root
-    group: root
+    owner: "{{ user }}"
+    group: "{{ user }}"
     mode: "0755"
 
 - name: Extract Firefox tarball.
@@ -22,9 +22,34 @@
     copy: no
 
 - name: Create symlink for Firefox binary.
-  become: yes
-  file:
-    state: link
-    src: "{{ firefox_symlink_src }}"
-    dest: "{{ firefox_symlink_dest }}"
+  block:
+    - name: Create directory for binary shortcuts
+      file:
+        path: "{{ firefox_symlink_dest_dir }}"
+        state: directory
+        owner: "{{ user }}"
+        group: "{{ user }}"
+        mode: "0755"
+    - name: Create actual symlink
+      file:
+        state: link
+        src: "{{ firefox_symlink_src }}"
+        dest: "{{ firefox_symlink_dest }}"
   when: firefox_create_symlink == true
+
+- name: Create desktop shortcut
+  block:
+    - name: Create directory for destop shortcuts
+      file:
+        path: "{{ firefox_desktop_shortcut_dir }}"
+        state: directory
+        owner: "{{ user }}"
+        group: "{{ user }}"
+        mode: "0755"
+    - name: Create actual desktop shortcut
+      template:
+        dest: "{{ firefox_desktop_shortcut }}"
+        src: firefox-developer-edition.desktop.j2
+        mode: "u=rw,g=r,o=r"
+        owner: "{{ user }}"
+        group: "{{ user }}"

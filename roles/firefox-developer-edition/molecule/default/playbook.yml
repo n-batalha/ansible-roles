@@ -4,4 +4,4 @@
   vars:
     molecule_scenario_directory: "{{ lookup('env', 'MOLECULE_SCENARIO_DIRECTORY') }}"
   roles:
-    - role: ansible-role-firefox
+    - role: firefox-developer-edition

@@ -6,6 +6,8 @@ driver:
 lint:
   name: yamllint
 platforms:
+  - name: Fedora-29
+    image: fedora:29
   - name: firefox-debian
     image: debian:stretch
   - name: firefox-ubuntu

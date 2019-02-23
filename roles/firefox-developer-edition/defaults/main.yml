@@ -21,15 +21,20 @@ firefox_apt_preferences_content: |-
 # Tarball installation logic. Not currently used, documented for legacy reasons.
 firefox_lang: en-US
 firefox_arch: linux-x86_64
-firefox_version: "57.0"
-firefox_download_base_url: "https://download-installer.cdn.mozilla.net/pub/firefox/releases"
+firefox_version: "66.0b7"
+firefox_download_base_url: "https://ftp.mozilla.org/pub/devedition/releases"
 firefox_download_url: "{{ firefox_download_base_url }}/{{ firefox_version }}/{{ firefox_arch }}/{{ firefox_lang }}/firefox-{{ firefox_version }}.tar.bz2"
 firefox_download_tarball: "{{ firefox_download_url|basename }}"
-firefox_download_directory: /usr/local/src
+firefox_download_directory: /tmp/
 
 # Base directory into which firefox will be installed. A subdirectory
 # name "firefox" will be automatically created during tarball extraction.
-firefox_install_directory: /opt
+firefox_install_directory: "{{ ansible_env.HOME }}/.local/share/"
 firefox_create_symlink: true
 firefox_symlink_src: "{{ firefox_install_directory }}/firefox/firefox"
-firefox_symlink_dest: /usr/local/bin/firefox
+firefox_symlink_dest_dir: "{{ ansible_env.HOME }}/.local/bin/"
+firefox_symlink_dest: "{{ firefox_symlink_dest_dir }}/firefox-developer-edition"
+
+firefox_desktop_shortcut_dir: "{{ ansible_env.HOME }}/.local/share/applications/"
+firefox_desktop_shortcut: "{{ firefox_desktop_shortcut_dir }}/firefox-developer-edition.desktop"
+user: "{{ ansible_user_id }}"
