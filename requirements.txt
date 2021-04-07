@@ -1,18 +1,16 @@
--i https://pypi.org/simple
-ansible==2.7.8
-asn1crypto==0.24.0
-attrs==18.2.0
-bcrypt==3.1.6
-cffi==1.12.1
-cryptography==2.5
-jinja2==2.10
-markupsafe==1.1.0
+-i https://pypi.org/simple/
+ansible-base==2.10.7
+ansible==2.10.0
+attrs==20.3.0
+cffi==1.14.5
+cryptography==3.4.7
+jinja2==2.11.3
+markupsafe==1.1.1
 mazer==0.3.0
-paramiko==2.4.2
-pyasn1==0.4.5
-pycparser==2.19
-pynacl==1.3.0
-pyyaml==3.13
-semver==2.8.1
-six==1.12.0
-yamlloader==0.5.5
+packaging==20.9
+pycparser==2.20
+pyparsing==2.4.7
+pyyaml==5.4.1
+semver==2.13.0
+six==1.15.0
+yamlloader==1.0.0
